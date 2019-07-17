@@ -18,6 +18,28 @@ public class Button {
     @Expose
     private String apiUrl;
 
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public Button() {
+    }
+
+    /**
+     *
+     * @param icon
+     * @param title
+     * @param apiUrl
+     * @param type
+     */
+    public Button(String type, String title, String icon, String apiUrl) {
+        super();
+        this.type = type;
+        this.title = title;
+        this.icon = icon;
+        this.apiUrl = apiUrl;
+    }
+
     public String getType() {
         return type;
     }

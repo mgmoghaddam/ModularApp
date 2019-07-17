@@ -4,8 +4,6 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import ir.pishrosoft.modularapp.models.Button;
-
 public class ModelMainItems {
 
     @SerializedName("appTitle")
@@ -26,6 +24,32 @@ public class ModelMainItems {
     @SerializedName("buttons")
     @Expose
     private List<Button> buttons = null;
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public ModelMainItems() {
+    }
+
+    /**
+     *
+     * @param baseUrl
+     * @param id
+     * @param color
+     * @param buttons
+     * @param logoUrl
+     * @param appTitle
+     */
+    public ModelMainItems(String appTitle, String color, Integer id, String logoUrl, String baseUrl, List<Button> buttons) {
+        super();
+        this.appTitle = appTitle;
+        this.color = color;
+        this.id = id;
+        this.logoUrl = logoUrl;
+        this.baseUrl = baseUrl;
+        this.buttons = buttons;
+    }
 
     public String getAppTitle() {
         return appTitle;

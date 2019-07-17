@@ -15,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +28,12 @@ import ir.pishrosoft.modularapp.R;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
-    ArrayList<Button> itemsList;
+    private List<Button> dataList;
     Context context;
 
 
-    public RecyclerViewAdapter(ArrayList<Button> itemsList, Context context) {
-        this.itemsList = itemsList;
+    public RecyclerViewAdapter(List<Button> dataList, Context context) {
+        this.dataList = dataList;
         this.context = context;
     }
 
@@ -43,22 +46,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final Button aItem = itemsList.get(position);
-        holder.aIcon.setImageResource(R.drawable.build_black);
-        holder.aTitle.setText(aItem.getTitle());
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+        holder.aTitle.setText(dataList.get(position).getTitle());
+        Picasso.Builder builder = new Picasso.Builder(context);
+        builder.downloader(new OkHttp3Downloader(context));
+        builder.build().load(dataList.get(position).getIcon())
+                .placeholder((R.drawable.build_black))
+                .error(R.drawable.build_black)
+                .into(holder.aIcon);
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (aItem.getType()) {
+                switch (dataList.get(position).getType()) {
                     case "1":
                         Bundle bundle = new Bundle();
-                        bundle.putString("title", aItem.getTitle());
+                        bundle.putString("title", dataList.get(position).getTitle());
                         MainFragment.navController.navigate(R.id.action_mainFragment_to_recyclerForType1, bundle);
                         break;
                     case "2":
                         Bundle bundle2 = new Bundle();
-                        bundle2.putString("title", aItem.getTitle());
+                        bundle2.putString("title", dataList.get(position).getTitle());
                         MainFragment.navController.navigate(R.id.action_mainFragment_to_recyclerForType2, bundle2);
                         break;
                     case "3":
@@ -66,7 +74,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         break;
                     case "4":
                         Bundle bundle3 = new Bundle();
-                        bundle3.putString("title", aItem.getTitle());
+                        bundle3.putString("title", dataList.get(position).getTitle());
                         MainFragment.navController.navigate(R.id.action_mainFragment_to_webViewFragment, bundle3);
                         break;
                     default:
@@ -80,7 +88,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return itemsList.size();
+        return dataList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -102,7 +110,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
     @Override
     public int getItemViewType(int position) {
-        return (position==itemsList.size()-1 && itemsList.size()%2==1) ? 0 : 1; // If the item is last, `itemViewType` will be 0
+        return (position==dataList.size()-1 && dataList.size()%2==1) ? 0 : 1; // If the item is last, `itemViewType` will be 0
     }
 
 

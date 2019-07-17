@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,14 +22,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.pishrosoft.modularapp.adapters.RecyclerViewAdapter;
-import ir.pishrosoft.modularapp.models.AppClient;
 import ir.pishrosoft.modularapp.models.Button;
 import ir.pishrosoft.modularapp.models.ModelMainItems;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainFragment extends Fragment {
@@ -47,8 +43,29 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment_recycler, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+
+        GetDataService getDataService = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<ModelMainItems> call = getDataService.getJson();
+        call.enqueue(new Callback<ModelMainItems>() {
+            @Override
+            public void onResponse(Call<ModelMainItems> call, Response<ModelMainItems> response) {
+                generateDAtaList(response.body().getButtons());
+
+            }
+
+            @Override
+            public void onFailure(Call<ModelMainItems> call, Throwable t) {
+
+            }
+        });
+
+        return view;
+    }
+
+    private void generateDAtaList(List<Button> mainItems) {
         mRecycler = mainFRecycler;
-        mAdapter = new RecyclerViewAdapter(mItem, getContext());
+        mAdapter = new RecyclerViewAdapter(mainItems, getContext());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             mRecycler.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
@@ -70,15 +87,8 @@ public class MainFragment extends Fragment {
                 }
             }
         });
-//        setData();
-
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setAdapter(mAdapter);
-//        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
-//        mRecycler.setLayoutManager(layoutManager);
-//        mRecycler.setAdapter(mAdapter);
-//        setData();
-        return view;
     }
 
 
@@ -97,7 +107,6 @@ public class MainFragment extends Fragment {
 
     @BindView(R.id.mainFRecycler)
     RecyclerView mainFRecycler;
-
 
 
 }
