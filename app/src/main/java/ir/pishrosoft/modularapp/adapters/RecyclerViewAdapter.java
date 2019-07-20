@@ -29,7 +29,7 @@ import ir.pishrosoft.modularapp.R;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private List<Button> dataList;
-    Context context;
+    private Context context;
 
 
     public RecyclerViewAdapter(List<Button> dataList, Context context) {
@@ -62,11 +62,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     case "1":
                         Bundle bundle = new Bundle();
                         bundle.putString("title", dataList.get(position).getTitle());
+                        bundle.putString("url", dataList.get(position).getApiUrl());
                         MainFragment.navController.navigate(R.id.action_mainFragment_to_recyclerForType1, bundle);
                         break;
                     case "2":
                         Bundle bundle2 = new Bundle();
                         bundle2.putString("title", dataList.get(position).getTitle());
+                        bundle2.putString("url", dataList.get(position).getApiUrl());
                         MainFragment.navController.navigate(R.id.action_mainFragment_to_recyclerForType2, bundle2);
                         break;
                     case "3":
@@ -75,6 +77,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     case "4":
                         Bundle bundle3 = new Bundle();
                         bundle3.putString("title", dataList.get(position).getTitle());
+                        bundle3.putString("url", dataList.get(position).getApiUrl());
                         MainFragment.navController.navigate(R.id.action_mainFragment_to_webViewFragment, bundle3);
                         break;
                     default:

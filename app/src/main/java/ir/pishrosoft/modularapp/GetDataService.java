@@ -11,4 +11,5 @@ public interface GetDataService {
 
     @GET("/settings/MobileAppSettings.json")
     Call<ModelMainItems> getJson();
+
 }

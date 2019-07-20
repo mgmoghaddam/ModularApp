@@ -22,6 +22,11 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="اخبار" />
+        <argument
+            android:name="Url"
+            app:argType="string"
+            app:nullable="false"
+            android:defaultValue="false"/>
     </fragment>
     <fragment
         android:id="@+id/webViewFragment"
