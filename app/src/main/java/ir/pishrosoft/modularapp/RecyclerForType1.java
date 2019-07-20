@@ -1,6 +1,7 @@
 package ir.pishrosoft.modularapp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,14 +35,13 @@ import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public class RecyclerForType1 extends Fragment implements UrlHandler {
+public class RecyclerForType1 extends Fragment {
     private Unbinder unbinder;
     public static NavController navController;
     RecyclerView mRecycler;
     RecyclerAdapterType1 mAdapter;
     List<Type1Data> mItem = new ArrayList<>();
-    MainActivity activity;
-
+    String url;
 
 
     @Nullable
@@ -49,27 +49,30 @@ public class RecyclerForType1 extends Fragment implements UrlHandler {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recycler_main, container, false);
         unbinder = ButterKnife.bind(this, view);
+        url = getArguments().getString("url");
 
 
 
-        Call<ModelMainItems> call = getDataService.getJson();
-        call.enqueue(new Callback<ModelMainItems>() {
+        GetDataService getDataService = RetrofitClientInstance.getApiService(getContext());
+        Call<Type1Data> call = getDataService.getType1Json(url);
+        call.enqueue(new Callback<Type1Data>() {
             @Override
-            public void onResponse(Call<ModelMainItems> call, Response<ModelMainItems> response) {
-                mItem = response.body().getButtons();
+            public void onResponse(Call<Type1Data> call, Response<Type1Data> response) {
+
+//                mItem = response.body().get
+
+
 
                 Toast.makeText(getContext(), "Secsessssss", Toast.LENGTH_LONG).show();
 
             }
 
             @Override
-            public void onFailure(Call<ModelMainItems> call, Throwable t) {
-                Toast.makeText(getContext(), "", Toast.LENGTH_LONG).show();
+            public void onFailure(Call<Type1Data> call, Throwable t) {
+                Toast.makeText(getContext(), "fail", Toast.LENGTH_LONG).show();
 
             }
         });
-
-        return view;
 
         return view;
 
@@ -80,7 +83,7 @@ public class RecyclerForType1 extends Fragment implements UrlHandler {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
         titleMain.setText(getArguments().getString("title"));
-        url = getArguments().getString("url");
+
 
 
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -99,8 +102,6 @@ public class RecyclerForType1 extends Fragment implements UrlHandler {
     }
     public interface YourEndpoints {
 
-        @GET()
-        Call<ModelMainItems> getJson();
     }
 
 
