@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -34,7 +35,7 @@ public class MainFragment extends Fragment {
     public static NavController navController;
     private Unbinder unbinder;
     RecyclerView mRecycler;
-    ArrayList<Button> mItem = new ArrayList<>();
+    List<Button> mItem = new ArrayList<>();
     RecyclerViewAdapter mAdapter;
     final GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
 
@@ -45,17 +46,21 @@ public class MainFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
 
-        GetDataService getDataService = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        GetDataService getDataService = RetrofitClientInstance.getApiService(getContext());
         Call<ModelMainItems> call = getDataService.getJson();
         call.enqueue(new Callback<ModelMainItems>() {
             @Override
             public void onResponse(Call<ModelMainItems> call, Response<ModelMainItems> response) {
-                generateDAtaList(response.body().getButtons());
+                mItem = response.body().getButtons();
+
+                generateDAtaList();
+                Toast.makeText(getContext(), "Secsessssss", Toast.LENGTH_LONG).show();
 
             }
 
             @Override
             public void onFailure(Call<ModelMainItems> call, Throwable t) {
+                Toast.makeText(getContext(), "", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -63,9 +68,9 @@ public class MainFragment extends Fragment {
         return view;
     }
 
-    private void generateDAtaList(List<Button> mainItems) {
+    private void generateDAtaList() {
         mRecycler = mainFRecycler;
-        mAdapter = new RecyclerViewAdapter(mainItems, getContext());
+        mAdapter = new RecyclerViewAdapter(mItem, getContext());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             mRecycler.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
