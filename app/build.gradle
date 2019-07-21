@@ -42,6 +42,8 @@ dependencies {
 
     //Retrofit
     implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.6.0'
+    //Xml Retrofit
+    implementation group: 'com.squareup.retrofit2', name: 'converter-simplexml', version: '2.3.0'
     //Gson Retrofit
     implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.6.0'
 
@@ -60,6 +62,9 @@ dependencies {
 
     //RxJava
     implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
+
+    //SVG
+    implementation 'com.github.ar-android:AndroidSvgLoader:1.0.2'
 
 
 }

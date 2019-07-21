@@ -15,12 +15,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ahmadrosid.svgloader.SvgLoader;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.pishrosoft.modularapp.MainActivity;
 import ir.pishrosoft.modularapp.MainFragment;
 import ir.pishrosoft.modularapp.models.Button;
 import ir.pishrosoft.modularapp.models.ModelMainItems;
@@ -30,11 +32,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private List<Button> dataList;
     private Context context;
+    MainActivity activity;
+    private static final String URL = "http://79.175.151.185:89";
 
 
     public RecyclerViewAdapter(List<Button> dataList, Context context) {
         this.dataList = dataList;
         this.context = context;
+
+
     }
 
     @NonNull
@@ -48,12 +54,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         holder.aTitle.setText(dataList.get(position).getTitle());
-        Picasso.Builder builder = new Picasso.Builder(context);
-        builder.downloader(new OkHttp3Downloader(context));
-        builder.build().load(dataList.get(position).getIcon())
-                .placeholder((R.drawable.build_black))
-                .error(R.drawable.build_black)
-                .into(holder.aIcon);
+
+
+        SvgLoader.pluck()
+                .with(context)
+                .setPlaceHolder(R.mipmap.ic_launcher, R.mipmap.ic_launcher)
+                .load(URL + dataList.get(position).getIcon(), holder.aIcon);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,10 +117,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             cardView = itemView.findViewById(R.id.notifications);
         }
     }
-    @Override
-    public int getItemViewType(int position) {
-        return (position==dataList.size()-1 && dataList.size()%2==1) ? 0 : 1; // If the item is last, `itemViewType` will be 0
-    }
+//    @Override
+//    public int getItemViewType(int position) {
+//        return (position==dataList.size()-1 && dataList.size()%2==1) ? 0 : 1; // If the item is last, `itemViewType` will be 0
+//    }
 
 
 

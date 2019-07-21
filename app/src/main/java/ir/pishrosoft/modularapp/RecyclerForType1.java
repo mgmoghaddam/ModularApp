@@ -1,12 +1,9 @@
 package ir.pishrosoft.modularapp;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,15 +22,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.pishrosoft.modularapp.adapters.RecyclerAdapterType1;
-import ir.pishrosoft.modularapp.adapters.RecyclerViewAdapter;
-import ir.pishrosoft.modularapp.models.Button;
 import ir.pishrosoft.modularapp.models.ModelMainItems;
 import ir.pishrosoft.modularapp.models.Type1Data;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
 
 public class RecyclerForType1 extends Fragment {
     private Unbinder unbinder;
@@ -41,7 +34,6 @@ public class RecyclerForType1 extends Fragment {
     RecyclerView mRecycler;
     RecyclerAdapterType1 mAdapter;
     List<Type1Data> mItem = new ArrayList<>();
-    String url;
 
 
     @Nullable
@@ -49,27 +41,24 @@ public class RecyclerForType1 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recycler_main, container, false);
         unbinder = ButterKnife.bind(this, view);
-        url = getArguments().getString("url");
+        String url = getArguments().getString("url");
 
 
-
-        GetDataService getDataService = RetrofitClientInstance.getApiService(getContext());
+        GetDataService getDataService = RetrofitClientInstanceHTML.getApiService(getContext());
         Call<Type1Data> call = getDataService.getType1Json(url);
         call.enqueue(new Callback<Type1Data>() {
             @Override
             public void onResponse(Call<Type1Data> call, Response<Type1Data> response) {
+//                mItem = response.body().getButtons();
 
-//                mItem = response.body().get
-
-
-
+//                generateDAtaList();
                 Toast.makeText(getContext(), "Secsessssss", Toast.LENGTH_LONG).show();
 
             }
 
             @Override
             public void onFailure(Call<Type1Data> call, Throwable t) {
-                Toast.makeText(getContext(), "fail", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Faillllll", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -92,8 +81,8 @@ public class RecyclerForType1 extends Fragment {
 
         mRecycler = mRecyclerView;
         mRecycler.setHasFixedSize(true);
-        mAdapter = new RecyclerAdapterType1(mItem, getContext());
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        mAdapter = new RecyclerAdapterType1(mItem, getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setAdapter(mAdapter);
 
@@ -103,7 +92,6 @@ public class RecyclerForType1 extends Fragment {
     public interface YourEndpoints {
 
     }
-
 
     @BindView(R.id.titleMain)
     TextView titleMain;
