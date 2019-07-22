@@ -38,7 +38,6 @@ public class WebViewFragment extends Fragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_webViewFragment_to_mainFragment);
             }
         });
     }

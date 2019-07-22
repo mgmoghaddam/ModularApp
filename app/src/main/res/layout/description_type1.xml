@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E9F3">
+
+    <LinearLayout
+        android:id="@+id/lySub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:elevation="3dp">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/backBtnAn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.1"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/fontawsome"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="angle-left"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/titleMain"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:fontFamily="@font/iransansnum"
+            android:gravity="center_horizontal"
+            android:paddingTop="5dp"
+            android:text="اخبار"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.1"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/fontawsome"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="  "
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/lySub">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher_foreground"/>
+        <TextView
+            android:id="@+id/titleDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_gravity="right"
+            android:text="عنوان"
+            android:textSize="20dp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:maxLines="2"
+            android:layout_marginTop="30dp"/>
+        <TextView
+            android:id="@+id/desDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="«صباح زنگنه»، نماینده پیشین ایران در سازمان همکاری‌های اسلامی، درباره رفتار دوگانه عربستان در قبال ایران مبنی بر درخواست مذاکرات دیپلماتیک از یک سو و موافقت با حضور نیروی نظامی بیشتر آمریکایی‌ها در عربستان از سوی دیگر، به خبرنگار سیاسی برنا گفت: باید از این اظهارات نماینده عربستان در سازمان ملل استقبال کرد و این موضوع را نشانگر بخش عقلایی حاکمیت تلقی کرد. عبدالله المعلمی، نماینده عربستان در سازمان ملل، فرد با تجربه‌ای بوده و سخن وی، نشان آن بخش عقلایی حاکمیت عربستان است که باید از آن استقبال کرد و امیدوار بود آن بخش بر سایر بخش‌ها غلبه کند و مجموعه تصمیم گیران حاکمیت در عربستان به چنین دیدگاهی معتقد باشند و ابزار آن را فراهم کنند. ایران نیز با عربستان در مسائل دوجانبه مشکلی ندارد هر دو در یک منطقه حضور دارند و زندگی می‌کنند و منبع درآمد اصلی آنها نیز از فروش نفت است. این همسایه مهم یعنی عربستان شاید به این درک رسیده باشد که عدم صادرات نفت ایران به چه معنا خواهد بود."
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="#000"
+            android:textSize="16dp"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="50dp"/>
+        <ImageView
+            android:id="@+id/photoDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            />
+
+    </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

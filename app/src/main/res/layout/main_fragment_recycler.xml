@@ -6,10 +6,9 @@
     android:layout_height="match_parent"
     android:background="#ECECEC"
     android:orientation="vertical"
-    tools:context=".MainFragment"
+    tools:context=".MainActivity"
     android:name="androidx.navigation.fragment.NavHostFragment"
-    app:defaultNavHost= "true"
-    app:navGraph = "@navigation/mobile_navigation">
+    app:defaultNavHost= "true">
 
     <LinearLayout
         android:id="@+id/LogoLny"
@@ -20,6 +19,7 @@
         android:gravity="center">
 
         <ImageView
+            android:id="@+id/mainIcon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerInside"
